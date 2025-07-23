@@ -16,6 +16,9 @@ CountIF.pbix — Power BI file with all COUNTIF-style measures.
 
 README.md — This documentation.
 
+🎯CREDIT
+https://www.youtube.com/watch?v=RSNyCj8HCmE&list=PLr7RyN24TvNYzETX26HxTzzLr2qMH-iT9&index=12
+
 
 
 ---
