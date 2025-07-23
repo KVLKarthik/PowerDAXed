@@ -32,18 +32,17 @@ IF(
         )
     )
 )
-
-📊 Use Cases
+## 📊 Use Cases
 Compare CY vs LY sales at month or year level.
 
 Works with partial periods, ensuring accurate LY comparisons.
 
 Ideal for year-to-date and custom period analysis.
 
-📂 Files
+## 📂 Files
 LYTotalSales.pbix — Power BI file with this measure implemented.
 
 README.md — Documentation for the DAX measure.
 
-📚 Source
+## 📚 Source
 https://www.youtube.com/watch?v=txUyGVKqs_s&list=PLr7RyN24TvNYzETX26HxTzzLr2qMH-iT9&index=10&t=2s
