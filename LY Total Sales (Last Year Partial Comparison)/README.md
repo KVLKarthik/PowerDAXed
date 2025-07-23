@@ -6,6 +6,22 @@ This repository contains a DAX measure that calculates **Last Year's Total Sales
 - When a **single month** is selected, it directly compares sales with the **same month last year** using `SAMEPERIODLASTYEAR`.
 - When a **single year** is selected, it dynamically compares the date range to the **corresponding period of the previous year** using `DATESBETWEEN`.
 
+## 📊 Use Cases
+Compare CY vs LY sales at month or year level.
+
+Works with partial periods, ensuring accurate LY comparisons.
+
+Ideal for year-to-date and custom period analysis.
+
+## 📂 Files
+LYTotalSales.pbix — Power BI file with this measure implemented.
+
+README.md — Documentation for the DAX measure.
+
+## 📚 Source
+https://www.youtube.com/watch?v=txUyGVKqs_s&list=PLr7RyN24TvNYzETX26HxTzzLr2qMH-iT9&index=10&t=2s
+
+
 ---
 
 ## 🧮 DAX Code
@@ -32,17 +48,3 @@ IF(
         )
     )
 )
-## 📊 Use Cases
-Compare CY vs LY sales at month or year level.
-
-Works with partial periods, ensuring accurate LY comparisons.
-
-Ideal for year-to-date and custom period analysis.
-
-## 📂 Files
-LYTotalSales.pbix — Power BI file with this measure implemented.
-
-README.md — Documentation for the DAX measure.
-
-## 📚 Source
-https://www.youtube.com/watch?v=txUyGVKqs_s&list=PLr7RyN24TvNYzETX26HxTzzLr2qMH-iT9&index=10&t=2s
