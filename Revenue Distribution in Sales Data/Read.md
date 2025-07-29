@@ -1,46 +1,50 @@
-📊 Revenue Distribution in Sales Data
-This Power BI file explores how revenue and cost can be analyzed and broken down across different product categories and years.
+## 📊 Allocation Calculations in Power BI
 
-🔧 Features Included
-Sales & Cost Columns
-Custom columns using DAX:
+This Power BI project demonstrates how to perform **cost allocations** across categories and time using sales data, price, and external cost inputs. It’s designed as a practical example of DAX-based revenue and cost modeling for analytics dashboards.
 
-TOTAL SALES
+---
 
-TOTAL COST → based on related cost table
+### 🎯 Objective
 
-COST CONCAT → combines year and category
+To allocate total cost proportionally across categories like **Product**, **Year**, and **Order Quantity**, using calculated ratios based on sales transactions.
 
-Normalized Measures
+---
 
-NUMERATOR SALES and DENOMINATOR SALES for ratio-based visuals
+### 🧠 Core Concepts
 
-Relationship Mapping
+* **Dynamic Allocation** using ratio of:
 
-Fact table SalesData linked to Cost, Products, and Calendar
+  * Unit Sales (numerator)
+  * Total Category Sales (denominator)
+* **Context-Aware Calculations** via `ALLEXCEPT()` and `CALCULATE()`
+* **Cost Join** from external dimension table
+* **Optimization** with `SUMX()` and `DIVIDE()` for better performance
 
-📁 File Structure
-Tables:
+---
 
-SalesData (fact)
+### 🔨 Key Metrics (High-Level)
 
-Products, Cost, Calendar (dimensions)
+* **TOTAL SALES**
+* **NUMERATOR SALES**
+* **DENOMINATOR SALES**
+* **TOTAL COST**
+* **COST ALLOCATED** (Basic and Optimized)
+* **COST CONCAT** for grouping Year + Category
 
-Measures/Columns:
-Core metrics include:
+📌 *All calculations are defined at the row level using related tables and later aggregated at the category level.*
 
-DAX
-Copy
-Edit
-COST CONCAT = YEAR(SalesData[OrderDate]) & " | " & RELATED(Products[Category])
+---
 
-TOTAL COST = RELATED(Cost[Cost])
-🔍 Purpose
-Practice cost-revenue allocation logic
+### 🗃️ Model Overview
 
-Build slicer-responsive visualizations
+* `SalesData` → Fact Table (Order-wise details)
+* `Products`, `Cost`, `Calendar` → Dimension Tables
+* Relationships defined via `ProductKey` and custom `COST CONCAT`
 
-Show foundational use of RELATED() and SUMX()
+---
 
-📌 Status
-🚧 Work In Progress
+### 🚀 Performance & Tools
+
+* **Used**: Power BI Desktop
+* **Performance Analyzer** used to compare DAX alternatives
+* **Focus**: Efficient model design, minimal DAX redundancy
