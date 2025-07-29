@@ -48,3 +48,6 @@ To allocate total cost proportionally across categories like **Product**, **Year
 * **Used**: Power BI Desktop
 * **Performance Analyzer** used to compare DAX alternatives
 * **Focus**: Efficient model design, minimal DAX redundancy
+
+
+CREDIT https://www.youtube.com/watch?v=x2fIFC9lUZo&list=PLr7RyN24TvNYzETX26HxTzzLr2qMH-iT9&index=16
