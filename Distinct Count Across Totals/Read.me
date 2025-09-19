@@ -1,0 +1,44 @@
+🔢 Distinct Count Across Totals in Power BI (DAX Patterns)
+🧠 Overview
+
+When building a Matrix in Power BI with Year, Quarter, and unique product counts, the default behavior is misleading:
+
+Quarter counts are correct.
+
+But the Total row simply adds quarter counts together, even if products overlap.
+
+This guide shows how to fix Matrix totals by creating a summarized table so the total row reflects the true distinct count across all quarters.
+
+📊 Use Cases
+
+Count unique products per quarter and per year correctly.
+
+Ensure total row = true distinct count, not a sum of distinct counts.
+
+Use DAX patterns for scenarios where totals don’t behave as expected in matrices.
+
+📂 Files
+
+DistinctProductTotals.pbix → Power BI file with corrected DAX logic.
+
+README.md → This documentation.
+
+🎯 Credit
+
+https://www.youtube.com/watch?v=MXNEOa0jD_Y&list=PLr7RyN24TvNYzETX26HxTzzLr2qMH-iT9&index=21
+
+🧮 DAX Implementation
+‘‘‘
+Products_By_Qtr =
+ADDCOLUMNS(
+    SUMMARIZE(
+        Sales,
+        'Calendar'[Year],
+        'Calendar'[Qtr]
+    ),
+    "UNIQUE PRODUCTS",
+    CALCULATE(
+        DISTINCTCOUNT(Sales[ProductKey])
+    )
+)
+‘‘‘
