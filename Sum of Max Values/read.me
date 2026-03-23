@@ -1,1 +1,112 @@
 
+# 📊 Power BI – Sum of Monthly Winning Product Sales
+
+## 🚩 Problem Statement
+
+In a sales dataset, we want to identify the **top-performing product (by total sales) for each month** and then calculate the **yearly total of these monthly winners**.
+
+While this sounds straightforward, Power BI's default aggregation behavior leads to incorrect totals in matrix visuals.
+
+---
+
+## ⚠️ The Challenge
+
+A simple measure like:
+
+```DAX
+Winning Product Sales =
+MAXX(
+    Products,
+    [Total Sales]
+)
+```
+
+works correctly at the **month level**, returning the highest-selling product for that month.
+
+However, at the **year (total) level**, Power BI recalculates the measure in a broader filter context:
+
+* Instead of summing monthly winners,
+* It returns the **maximum product sales across the entire year**
+
+👉 This leads to misleading totals.
+
+---
+
+## 💡 Solution Approach
+
+To fix this, we explicitly:
+
+1. Recreate **monthly granularity**
+2. Compute the **winning product sales per month**
+3. Aggregate (sum) those values
+
+---
+
+## ✅ Final Measure
+
+```DAX
+Sum of Max Sales =
+SUMX(
+    VALUES('Calendar'[YearMonth]),
+    CALCULATE(
+        MAXX(
+            Products,
+            [Total Sales]
+        )
+    )
+)
+```
+
+---
+
+## 🧠 Key Concepts
+
+* **Filter Context Matters**
+  Measures behave differently at different aggregation levels (Month vs Year).
+
+* **Matrix Totals Are Re-evaluated**
+  Totals are not sums of rows — they are recalculated in a new context.
+
+* **VALUES() vs SUMMARIZE()**
+
+  * `VALUES()` respects existing filters and slicers
+  * Preferred for dynamic, context-aware calculations
+
+* **Iterator Functions (SUMX)**
+  Used to force row-by-row computation at a specific granularity.
+
+---
+
+## 🛠 Supporting Column
+
+If not already available, create a Year-Month column:
+
+```DAX
+YearMonth = FORMAT('Calendar'[Date], "YYYY-MM")
+```
+
+---
+
+## 📈 Outcome
+
+* Correct monthly winning product sales ✔️
+* Accurate yearly totals (sum of monthly winners) ✔️
+* Fully responsive to filters and slicers ✔️
+
+---
+
+## 🔍 Takeaway
+
+Whenever totals in Power BI look incorrect:
+
+> Re-evaluate the **filter context** and explicitly control the **level of aggregation**.
+
+---
+
+## 📂 Use Case
+
+This pattern is useful for:
+
+* Top-N analysis across time
+* Monthly/weekly performance tracking
+* KPI rollups where "max per period" needs aggregation
