@@ -1,0 +1,77 @@
+# 📊 Power BI – Highlight Max Value in Chart (Conditional Formatting)
+
+## 🚩 Problem
+
+Highlight the **highest sales month** in a column chart (and matrix) while keeping other months visually muted.
+
+---
+
+## 💡 Approach
+
+Use a DAX measure to:
+
+1. Find the **maximum sales value across months**
+2. Compare each month’s sales with the max
+3. Return a color code for conditional formatting
+
+---
+
+## ✅ Measure
+
+```DAX
+Max Sales CF =
+VAR MaxSales =
+    MAXX(
+        ALL('Calendar'[Month], 'Calendar'[Index]),
+        [Total Sales]
+    )
+RETURN
+    IF(
+        [Total Sales] = MaxSales,
+        "Green",
+        "Light Grey"
+    )
+```
+
+---
+
+## 🎨 How to Apply
+
+### Column Chart
+
+* Go to **Format → Data Colors**
+* Click **fx (conditional formatting)**
+* Format style: **Field value**
+* Based on field: `Max Sales CF`
+
+### Matrix / Table
+
+* Select **Sales column**
+* Conditional Formatting → **Background Color**
+* Format by: **Field value**
+* Based on field: `Max Sales CF`
+
+---
+
+## 🧠 Key Insight
+
+* `ALL()` removes month-level filtering → ensures we find the **true max within selected slicer context (like Year)**
+* The measure dynamically updates based on slicers
+
+---
+
+## 📈 Outcome
+
+* Highest sales month → **Highlighted (Green)**
+* Remaining months → **Muted (Grey)**
+* Fully dynamic with slicers ✔️
+
+---
+
+## 🔍 Use Cases
+
+* Peak sales identification
+* KPI storytelling
+* Executive dashboards for quick insights
+
+---
