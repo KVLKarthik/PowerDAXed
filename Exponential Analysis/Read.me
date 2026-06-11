@@ -1,0 +1,66 @@
+# README – Exponential Analysis in Power BI (COVID-19 Data)
+# Overview
+This report analyzes the growth pattern of COVID-19 cases using a cumulative (Running Total) approach. The objective is to identify how many days were required for cumulative cases to move through different case ranges, helping visualize the exponential spread of the pandemic.
+# Data Preparation
+#  1. COVID Data
+The source dataset contains:
+Date
+State
+Total Cases
+# 2. Calendar Table
+A Calendar table was created to provide a continuous date dimension and support time-intelligence calculations.
+
+Calendar =
+CALENDAR(
+    MIN(CovidData[Date]),
+    MAX(CovidData[Date])
+)
+
+A relationship was established between:
+
+Calendar[Date] → CovidData[Date]
+
+# Running Total Calculation
+To track cumulative COVID cases over time, a Running Total measure was created.
+
+Test RT =
+CALCULATE(
+    [Total Cases],
+    FILTER(
+        ALL('Calendar'),
+        'Calendar'[Date] <= MAX('Calendar'[Date])
+    )
+)
+
+Logic
+
+For each date:
+
+Removes the current Calendar filter context using ALL().
+Keeps all dates less than or equal to the current date.
+Sums Total Cases for those dates.
+
+This produces a cumulative case count and helps visualize the growth trajectory over time.
+
+The Distribution measure identifies:
+
+The first date cumulative cases entered a range.
+The last date cumulative cases remained within that range.
+The total number of days spent in that range.
+Measure Used
+Distribution
+Logic
+Reads the selected range from the Range Table.
+Filters Calendar dates where Running Total falls within the selected range.
+Finds:
+Minimum Date
+Maximum Date
+Calculates:
+Days in Range =
+(Max Date - Min Date) + 1
+If the latest date in the range is the latest date in the dataset, the result displays:
+"Days & counting..."
+
+Otherwise:
+
+"Days"
